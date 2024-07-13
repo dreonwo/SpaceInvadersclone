@@ -20,14 +20,17 @@ body h1{
 .gameOver{
     border: 5px solid black;
     position: absolute;
-    width: 400px;
-    height: 400px;
-    top: 45%;
+    width: 400px; /*400px*/
+    height: 400px; /*400px*/
+    transform-origin: top left;
+    transition: all 1s ease-out;
+    top: 50%;
     left:50%;
     transform: translate(-50%,-50%);
     background-color: white;
     flex-direction: column;
     justify-content: center;
+    scale: 0%;
 }
 
 .gameOver h2, .gameOver h3{

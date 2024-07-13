@@ -288,6 +288,7 @@ function showGameOver(){
     let gameOverScreen = document.querySelector('.gameOver');
     let tryAgainBtn = document.querySelector('.tryAgain');
     gameOverScreen.style.display = 'flex';
+    gameOverScreen.style.scale = '100%';
 
     tryAgainBtn.addEventListener('click', e =>{
         if(e.target.tagName == 'H3'){
