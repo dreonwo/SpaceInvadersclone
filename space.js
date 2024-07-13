@@ -62,7 +62,7 @@ window.onload = function() {
         context.drawImage(shipImg, ship.x, ship.y, ship.width, ship.height);
     }
 
-    createAliens(1);
+    populateBoard();
     requestAnimationFrame(update);
     document.addEventListener("keydown", moveShip);
     document.addEventListener("keyup", shoot);
@@ -158,7 +158,7 @@ function update() {
         if( levelCount % 3 == 0)
             createBoss(50);
         else
-            createAliens(1);
+            populateBoard();
     }
     //score
     context.fillStyle="white";
@@ -181,23 +181,51 @@ function moveShip(e) {
     }
 }
 
-function createAliens(healthCount) {
-    healthCount = parseInt(healthCount);
+function createBasicAlien() {
     alienImg = new Image();
     alienImg.src = "./ogAlien.png";
+    let alien = {
+        img : alienImg,
+        width : alienWidth,
+        height : alienHeight,
+        alive : true,
+        health: 1,
+        isBoss: false
+    }
+    return alien;
+}
+
+function createPinkAlien() {
+    alienImg = new Image();
+    alienImg.src = "./PinkAlien.png";
+    let alien = {
+        img : alienImg,
+        width : alienWidth,
+        height : alienHeight,
+        alive : true,
+        health: 3,
+        isBoss: false
+    }
+    return alien;
+}
+
+function populateBoard(){
     for (let c = 0; c < alienColumns; c++) {
         for (let r = 0; r < alienRows; r++) {
-            let alien = {
-                img : alienImg,
-                x : alienX + c*alienWidth,
-                y : alienY + r*alienHeight,
-                width : alienWidth,
-                height : alienHeight,
-                alive : true,
-                health: healthCount,
-                isBoss: false
+            pinkChance = Math.floor(Math.random() * 5);
+            
+            if(pinkChance == 3){
+                let alien = createPinkAlien();
+                alien.x = alienX + c*alienWidth;
+                alien.y = alienY + r*alienHeight;
+                alienArray.push(alien);
             }
-            alienArray.push(alien);
+            else{
+                let alien = createBasicAlien();
+                alien.x = alienX + c*alienWidth;
+                alien.y = alienY + r*alienHeight;
+                alienArray.push(alien);
+            }
         }
     }
     alienCount = alienArray.length;
